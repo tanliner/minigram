@@ -85,9 +85,9 @@
 </view>
 
 <view>
-  <button bindtap="calculate" id='{{year.years[yearIndex]}}'>Try Calculate</button>
+  <button bindtap="calculate" id='{{year.years[yearIndex]}}'>开始计算</button>
   <view class='hor-line'></view>
   <button bindtap="change">等本息 / 等本金</button>
-  <view>首月: {{firstMonth}} RMB</view>
+  <view class='pay-first-month'>首月还款: {{firstMonth}}</view>
   <button bindtap='bindToShowDetail'>明细</button>
 </view>

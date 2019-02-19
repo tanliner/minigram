@@ -135,23 +135,10 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log('sub page show, set to 1');
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 1
@@ -163,27 +150,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
 
   },
 
@@ -217,7 +183,6 @@ Page({
       console.log('fAmount' + fAmount + ', cAmount' + cAmount + ', rate' + rate + ',' + rate2);
       everyMonth = this.calculateMonth(fAmount, rate, months) + this.calculateMonth(cAmount, rate2, months);
     }
-    console.log('you will pay:' + everyMonth + ' RMB at first month');
     this.setData({
       firstMonth: everyMonth.toFixed(2),
     });
