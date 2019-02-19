@@ -1,0 +1,32 @@
+<!--pages/loan_detail/detail.wxml-->
+<block>
+  <view wx:if="{{payType == 'interest'}}">
+    <text>等额本息, 月均还款: {{average}}</text>
+  </view>
+  <view wx:else>
+    <text>等额本金, 首月还款: {{average}}, 递减: {{minus}}</text>
+  </view>
+  <view class="tr bg-w">
+    <view class="th">月份</view>
+    <view class="th">本金</view>
+    <view class="th">利息</view>
+  </view>
+</block>
+
+<scroll-view class='sv' scroll-y>
+  <view class="table">
+    <block wx:for="{{interests}}" wx:key="{{item}}">
+      <view class="tr {{index % 2 == 0 ? 'bg-g' : ''}}">
+        <view class="td">{{index + 1}}</view>
+        <view class="td">{{principals[index]}}</view>
+        <view class="td">{{item}}</view>
+      </view>
+    </block>
+    <wxs src="./detail.wxs" module="mPayDetail" />
+    <view class="tr {{interests.length % 2 == 0 ? 'bg-g' : ''}}">
+      <view class="td">合计</view>
+      <view class="td">{{total}}</view>
+      <view class="td">{{mPayDetail.calculate(interests, total)}}</view>
+    </view>
+  </view>
+</scroll-view>

@@ -1,0 +1,18 @@
+var payAmount = 0;
+
+var calculate = function (array, amount) {
+  var total = 0;
+  var i = 0;
+  if(payAmount > 0) {
+    return payAmount;
+  }
+  for (i = 0; i < array.length; i++) {
+    total += array[i];
+  }
+  payAmount = Number(total.toFixed(2));
+  return payAmount;
+};
+
+module.exports = {
+  calculate: calculate
+}

@@ -1,0 +1,93 @@
+<!--pages/subpage.wxml-->
+<wxs src="./calculator.wxs" module="tools" />
+
+<view class='liner-hor'>
+  <view id="{{tools.loanTypes[0]}}" bindtap='changeloan' class='liner-hor-title-container'>
+    <view class="sub-tab {{loanType == tools.loanTypes[0] ? 'active' : ''}}" hover-class='sub-tab-press'>公积金贷</view>
+  </view>
+  <view id="{{tools.loanTypes[1]}}" bindtap='changeloan' class='liner-hor-title-container'>
+    <view class="sub-tab {{loanType == tools.loanTypes[1] ? 'active' : ''}}" hover-class='sub-tab-press'>商业贷</view>
+  </view>
+  <view id="{{tools.loanTypes[2]}}" bindtap='changeloan' class='liner-hor-title-container'>
+    <view class="sub-tab {{loanType == tools.loanTypes[2] ? 'active' : ''}}" hover-class='sub-tab-press'>组合贷</view>
+  </view>
+</view>
+
+<view class='desc-hor-container'>
+  <block wx:if="{{loanType != tools.loanTypes[1]}}">
+    <view class='desc-hor'>
+      <text class='title'>公积金贷款总额</text>
+      <input bindinput="bindFundInput" placeholder="{{fundAmount}}" class='money-input' type='digit' />
+      <text class='title'>万</text>
+    </view>
+    <view>
+      <view class='hor-line'></view>
+    </view>
+  </block>
+
+  <block wx:if="{{loanType != tools.loanTypes[0]}}">
+    <view class='desc-hor'>
+      <text class='title'>商业贷款总额</text>
+      <input bindinput="bindCommerInput" placeholder="{{commerAmount}}" class='money-input' type='digit'></input>
+      <text class='title'>万</text>
+    </view>
+    <view>
+      <view class='hor-line'></view>
+    </view>
+  </block>
+  <wxs module="year">
+    var years = [];
+    for (i = 0; i < 30; i++) {
+      years.push((i + 1));
+    }
+    module.exports = {
+      years: years,
+    }
+  </wxs>
+  <view class='desc-hor'>
+    <text class='title'>贷款年限</text>
+    <picker class='picker' mode='selector' bindchange="yearChange" range="{{year.years}}" value="{{yearIndex}}">
+      <view class='picker-title'>{{year.years[yearIndex]}} 年</view>
+    </picker>
+
+  </view>
+  <view>
+    <view class='hor-line'></view>
+  </view>
+
+  <view wx:if="{{loanType != tools.loanTypes[1]}}" class='desc-hor'>
+    <text class='title'>年利率</text>
+    <view class='calculator-container'>
+      <view class='empty'></view>
+      <input class='input' placeholder="{{baseFundRate}}" maxlength='5' type='digit'></input>
+      <text class='text percentage'>%</text>
+      <text class='text multiOp'>x</text>
+      <input bindinput="fundMulity" class='input multiple' placeholder='1' maxlength='5' type='digit'></input>
+      <text class='text'>倍</text>
+    </view>
+    <text class='title endtext'> = {{fundRateValue}}%</text>
+  </view>
+  <!-- when combine loand -->
+  <block wx:if="{{loanType != tools.loanTypes[0]}}">
+    <view class='desc-hor'>
+      <text class='title'>年利率(商贷)</text>
+      <view class='calculator-container'>
+        <view class='empty'></view>
+        <input class='input' placeholder="{{baseCommerRate}}" maxlength='5' type='digit'></input>
+        <text class='text percentage'>%</text>
+        <text class='text multiOp'>x</text>
+        <input bindinput="commerMulity" class='input multiple' placeholder='1' maxlength='5' type='digit'></input>
+        <text class='text'>倍 </text>
+      </view>
+      <text class='title endtext'> = {{commerRateValue}}%</text>
+    </view>
+  </block>
+</view>
+
+<view>
+  <button bindtap="calculate" id='{{year.years[yearIndex]}}'>Try Calculate</button>
+  <view class='hor-line'></view>
+  <button bindtap="change">等本息 / 等本金</button>
+  <view>首月: {{firstMonth}} RMB</view>
+  <button bindtap='bindToShowDetail'>明细</button>
+</view>

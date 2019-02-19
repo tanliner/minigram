@@ -1,0 +1,117 @@
+/* pages/subpage.wxss */
+.liner-hor {
+  height: 5∏0px;
+  display: flex;
+  flex-direction: row;
+}
+.liner-hor .liner-hor-title-container {
+  flex: 1;
+  display: flex;
+  background-color: #068383;
+  align-items: center;
+  justify-items: center;
+}
+/* justify-items: stretch; */
+.sub-tab {
+  flex: 1;
+  color: black;
+  font-size: 16px;
+  text-align: center;
+}
+.sub-tab.active {
+  color: white;
+}
+.sub-tab-press {
+  color: white;
+}
+
+.desc-hor-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.desc-hor-container .desc-hor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+}
+.desc-hor-container .desc-hor.input {
+  justify-content: space-around;
+}
+.title {
+  font-size: 14px;
+  text-align: center;
+  color: #344d48;
+}
+.title.endtext {
+  width: 65px;
+  text-align: start;
+  padding-left: 5px;
+}
+.desc-hor .money-input {
+  margin-left: 50px;
+  margin-right: 6px;
+  font-size: 14px;
+  text-align: right;
+  color: #5c5f63;
+  flex: 1;
+}
+.desc-hor .picker {
+  flex: 1;
+  margin-left: 50px;
+}
+.picker .picker-title {
+  text-align: right;
+  font-size: 14px;
+  color: #344d48;
+}
+
+.hor-line {
+  margin: 0 auto;
+  height: 1px;
+  background-color: #a1a19b;
+}
+
+/* the calculator */
+.calculator-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.calculator-container .empty {
+  flex: 1;
+}
+.calculator-container .text {
+  font-size: 14px;
+  text-align: end;
+  color: #344d48;
+}
+.calculator-container .text.percentage {
+  text-align: end;
+}
+.calculator-container .text.multiOp {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+  text-align: start;
+}
+.calculator-container text.multiple {
+  color: red;
+}
+.calculator-container .input {
+  width: 80px;
+  text-align: right;
+  flex-grow: 0;
+  font-size: 14px;
+  color: #5c5f63;
+}
+.calculator-container .input.multiple {
+  width: 25px;
+  color: #ff0000;
+  text-align: left;
+}
+
