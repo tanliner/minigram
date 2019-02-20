@@ -2,6 +2,7 @@
 const extraLine = []
 
 Page({
+  /** 页面中不变的数据 */
   constData: {
     fundRateValue: 3.25,
     commerRateValue: 4.90,
@@ -9,24 +10,25 @@ Page({
     commerMulity: 1,
   },
   /**
-   * 页面的初始数据
+   * 页面的初始数据，值可能会根据状态的不同而发生变化，
+   * 如果此时需要设置为初始状态的默认值就显得力不从心了，
+   * 所以，新增了 constData 作为默认值
    */
   data: {
     calculated: false,
-    type: 'interest', // 等额本息; principal: 等额本金
     loanType: 'providentFund', // commercial, combination
     fundAmount: 1,
     commerAmount: 1,
     yearIndex: 9, // range [0~30], default 10 years
     months: 120,
-    firstMonth: 0,
     baseFundRate: 3.25,
     baseCommerRate: 4.90,
     fundMulity: 1,
     commerMulity: 1,
     fundRateValue: 3.25,
     commerRateValue: 4.90,
-
+    type: 'interest', // 等额本息; principal: 等额本金
+    firstMonth: 0,
   },
   /**
   fundRateValue: (baseFundRate * fundMulity).toFixed(2),
@@ -57,6 +59,56 @@ Page({
       commerAmount: e.detail.value,
     });
   },
+  bindCalculate: function (e) {
+    const payType = this.data.type;
+    const loanType = this.data.loanType;
+    const months = this.data.months;
+    let lendAmount = 0;
+    let rate = 0;
+    let rate2 = 0;
+    let everyMonth = 0;
+    if (loanType === 'providentFund') {
+      rate = this.data.fundRateValue / 100;
+      lendAmount = this.data.fundAmount * 10000;
+      everyMonth = this.calculateMonth(lendAmount, rate, months);
+    } else if (loanType === 'commercial') {
+      rate2 = this.data.commerRateValue / 100;
+      lendAmount = this.data.commerAmount * 10000;
+      everyMonth = this.calculateMonth(lendAmount, rate2, months);
+    } else {
+      rate = this.data.fundRateValue / 100;
+      rate2 = this.data.commerRateValue / 100;
+      //lendAmount = (this.data.fundAmount + this.data.commerAmount) * 10000;
+      let fAmount = this.data.fundAmount * 10000;
+      let cAmount = this.data.commerAmount * 10000;
+      console.log('fAmount' + fAmount + ', cAmount' + cAmount + ', rate' + rate + ',' + rate2);
+      everyMonth = this.calculateMonth(fAmount, rate, months) + this.calculateMonth(cAmount, rate2, months);
+    }
+    this.setData({
+      firstMonth: everyMonth.toFixed(2),
+    });
+    return everyMonth;
+  },
+
+  calculateMonth: function (lendAmount, rate, months) {
+    const payType = this.data.type;
+    const mRate = rate / 12;
+    let everyMonth = 0;
+    let amount = 0;
+    if (payType === 'interest') {
+      // 100000×0.566667%×(1+0.566667%)120/[(1+0.566667%)120-1]
+      // everyMonth = this.justInterst(lendAmount, rate, months)
+      let top = lendAmount * mRate * Math.pow((1 + mRate), months);
+      let bottom = Math.pow((1 + mRate), months) - 1;
+      console.log('just interest top:' + top + ' ' + bottom);
+      amount = top / bottom;
+    } else if (payType === 'principal') {
+      // 100000/120 + (10000-已还)*0.566667%
+      console.log('just principal:' + lendAmount + ', rate:' + rate);
+      amount = (lendAmount / months) + (lendAmount - 0) * mRate;
+    }
+    return amount;
+  },
   bindToShowDetail(e) {
     console.log('show detail');
     const payType = this.data.type;
@@ -85,6 +137,7 @@ Page({
       //everyMonth = this.calculateMonth(fAmount, rate, months) + this.calculateMonth(cAmount, rate2, months);
     }
 
+    // uri 后面添加参数，参考说明：
     wx.navigateTo({
       url: '../detail/detail?total=' + lendAmount + '&loanType=' + loanType + 
         '&payType=' + payType + '&average=' + this.data.firstMonth + 
@@ -121,7 +174,7 @@ Page({
     });
   },
 
-  changeloan(event) {
+  changeLoan(event) {
     this.setData({
       loanType: event.currentTarget.id,
     });
@@ -144,68 +197,5 @@ Page({
         selected: 1
       })
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {},
-
-  calculate: function(e) {
-    const payType = this.data.type;
-    const loanType = this.data.loanType;
-    const months = this.data.months;
-    let lendAmount = 0;
-    let rate = 0;
-    let rate2 = 0;
-    let everyMonth = 0;
-    if (loanType === 'providentFund') {
-      rate = this.data.fundRateValue / 100;
-      lendAmount = this.data.fundAmount * 10000;
-      everyMonth = this.calculateMonth(lendAmount, rate, months);
-    } else if (loanType === 'commercial') {
-      rate2 = this.data.commerRateValue / 100;
-      lendAmount = this.data.commerAmount * 10000;
-      everyMonth = this.calculateMonth(lendAmount, rate2, months);
-    } else {
-      rate = this.data.fundRateValue / 100;
-      rate2 = this.data.commerRateValue / 100;
-      //lendAmount = (this.data.fundAmount + this.data.commerAmount) * 10000;
-      let fAmount = this.data.fundAmount * 10000;
-      let cAmount = this.data.commerAmount * 10000;
-      console.log('fAmount' + fAmount + ', cAmount' + cAmount + ', rate' + rate + ',' + rate2);
-      everyMonth = this.calculateMonth(fAmount, rate, months) + this.calculateMonth(cAmount, rate2, months);
-    }
-    this.setData({
-      firstMonth: everyMonth.toFixed(2),
-    });
-    return everyMonth;
-  },
-
-  calculateMonth: function(lendAmount, rate, months) {
-    const payType = this.data.type;
-    const mRate = rate / 12;
-    let everyMonth = 0;
-    let amount = 0;
-    if (payType === 'interest') {
-      // 100000×0.566667%×(1+0.566667%)120/[(1+0.566667%)120-1]
-      // everyMonth = this.justInterst(lendAmount, rate, months)
-      let top = lendAmount * mRate * Math.pow((1 + mRate), months);
-      let bottom = Math.pow((1 + mRate), months) - 1;
-      console.log('just interest top:' + top + ' ' + bottom);
-      amount = top / bottom;
-    } else if (payType === 'principal') {
-      // 100000/120 + (10000-已还)*0.566667%
-      console.log('just principal:' + lendAmount + ', rate:' + rate);
-      amount = (lendAmount / months) + (lendAmount - 0) * mRate;
-    }
-    return amount;
   },
 })

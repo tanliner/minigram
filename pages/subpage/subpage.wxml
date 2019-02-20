@@ -2,13 +2,13 @@
 <wxs src="./calculator.wxs" module="tools" />
 
 <view class='liner-hor'>
-  <view id="{{tools.loanTypes[0]}}" bindtap='changeloan' class='liner-hor-title-container'>
+  <view id="{{tools.loanTypes[0]}}" bindtap='changeLoan' class='liner-hor-title-container'>
     <view class="sub-tab {{loanType == tools.loanTypes[0] ? 'active' : ''}}" hover-class='sub-tab-press'>公积金贷</view>
   </view>
-  <view id="{{tools.loanTypes[1]}}" bindtap='changeloan' class='liner-hor-title-container'>
+  <view id="{{tools.loanTypes[1]}}" bindtap='changeLoan' class='liner-hor-title-container'>
     <view class="sub-tab {{loanType == tools.loanTypes[1] ? 'active' : ''}}" hover-class='sub-tab-press'>商业贷</view>
   </view>
-  <view id="{{tools.loanTypes[2]}}" bindtap='changeloan' class='liner-hor-title-container'>
+  <view id="{{tools.loanTypes[2]}}" bindtap='changeLoan' class='liner-hor-title-container'>
     <view class="sub-tab {{loanType == tools.loanTypes[2] ? 'active' : ''}}" hover-class='sub-tab-press'>组合贷</view>
   </view>
 </view>
@@ -35,19 +35,10 @@
       <view class='hor-line'></view>
     </view>
   </block>
-  <wxs module="year">
-    var years = [];
-    for (i = 0; i < 30; i++) {
-      years.push((i + 1));
-    }
-    module.exports = {
-      years: years,
-    }
-  </wxs>
   <view class='desc-hor'>
     <text class='title'>贷款年限</text>
-    <picker class='picker' mode='selector' bindchange="yearChange" range="{{year.years}}" value="{{yearIndex}}">
-      <view class='picker-title'>{{year.years[yearIndex]}} 年</view>
+    <picker class='picker' mode='selector' bindchange="yearChange" range="{{tools.years}}" value="{{yearIndex}}">
+      <view class='picker-title'>{{tools.years[yearIndex]}} 年</view>
     </picker>
 
   </view>
@@ -85,9 +76,9 @@
 </view>
 
 <view>
-  <button bindtap="calculate" id='{{year.years[yearIndex]}}'>开始计算</button>
+  <button bindtap="bindCalculate" id='{{tools.years[yearIndex]}}'>开始计算</button>
   <view class='hor-line'></view>
   <button bindtap="change">等本息 / 等本金</button>
   <view class='pay-first-month'>首月还款: {{firstMonth}}</view>
-  <button bindtap='bindToShowDetail'>明细</button>
+  <button bindtap='bindToShowDetail'>还款明细</button>
 </view>

@@ -6,6 +6,10 @@ var rate = 0.049;
 var mRate = rate / 12;
 var detail = [];
 var loanTypes = ['providentFund', 'commercial', 'combination'];
+var years = [];
+for (i = 0; i < 30; i++) {
+  years.push((i + 1));
+}
 
 var calculateTest = function (amount=lendAmount, y=10, r = rate) {
   console.log('the params:' + amount + ' y ' + y + ' r ' + r);
@@ -79,5 +83,6 @@ module.exports = {
   details: detail,
   interest: interest,
   principal: principal,
-  loanTypes: loanTypes
+  loanTypes: loanTypes,
+  years: years
 }
