@@ -8,3 +8,21 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+/* widget */
+.btn-area {
+  margin-top: 60rpx;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+}
+
+.page-body {
+  width: 100%;
+  flex-grow: 1;
+  overflow-x: hidden;
+}
+.page-section-gap {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}

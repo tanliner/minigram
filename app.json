@@ -1,31 +1,12 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/subpage/subpage",
     "pages/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#17b3b3",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "custom": true,
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "主页",
-      "iconPath": "./imgs/index.png",
-      "selectedIconPath": "./imgs/index_active.png"
-    },{
-      "pagePath": "pages/subpage/subpage",
-      "text": "计算房贷",
-      "iconPath": "./imgs/detail.png",
-      "selectedIconPath": "./imgs/detail_active.png"
-    }]
+    "navigationBarTitleText": "房贷计算器",
+    "navigationBarTextStyle": "white"
   }
 }

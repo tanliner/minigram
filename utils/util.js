@@ -18,7 +18,20 @@ const toFixed = (number, n) => {
   return Number(number.toFixed(n));
 }
 
+/**
+ * calculate the sum of array
+ */
+const arraySum = (array = []) => {
+  let length = array.length;
+  let total = 0;
+  for (let i = 0; i < length; i++) {
+    total += array[i];
+  }
+  return total;
+}
+
 module.exports = {
-  formatTime: formatTime,
-  toFixed: toFixed,
+  formatTime,
+  toFixed,
+  arraySum,
 }

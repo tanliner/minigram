@@ -1,10 +1,10 @@
 /* pages/subpage.wxss */
-.liner-hor {
-  height: 5∏0px;
+.form-topbar {
+  height: 50px;
   display: flex;
   flex-direction: row;
 }
-.liner-hor .liner-hor-title-container {
+.form-topbar .form-topbar-title-container {
   flex: 1;
   display: flex;
   background-color: #0dacac;
@@ -25,24 +25,34 @@
   color: white;
 }
 
-.desc-hor-container {
+/* detail form */
+.desc-form-container {
   display: flex;
   flex-direction: column;
   padding-left: 16px;
   padding-right: 16px;
 }
-.desc-hor-container .desc-hor {
+/* the horizontal-line */
+.desc-form-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 100rpx;
+  height: 40px;
 }
-.desc-hor-container .desc-hor.input {
+.money-input {
+  margin-left: 50px;
+  margin-right: 6px;
+  font-size: 14px;
+  text-align: right;
+  color: #5c5f63;
+  flex: 1;
+}
+.desc-form-item.input {
   justify-content: space-around;
 }
 .title {
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
   color: #344d48;
 }
@@ -51,71 +61,108 @@
   text-align: start;
   padding-left: 5px;
 }
-.desc-hor .money-input {
-  margin-left: 50px;
-  margin-right: 6px;
-  font-size: 14px;
+
+.desc-form-item .year-picker-input {
+  flex:1; 
+  font-size: 16px;
   text-align: right;
-  color: #5c5f63;
-  flex: 1;
+  padding-right: 2rpx;
 }
-.desc-hor .picker {
-  flex: 1;
-  margin-left: 50px;
+.desc-form-item .year-picker {
+  padding-left: 5px;
 }
-.picker .picker-title {
+.year-picker .year-picker-title {
   text-align: right;
-  font-size: 14px;
+  font-size: 16px;
   color: #344d48;
 }
 
-.hor-line {
+.horizontal-line {
   margin: 0 auto;
   height: 1px;
   background-color: #a1a19b;
 }
 
-/* the calculator */
+/* the rate calculate area */
 .calculator-container {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.calculator-container .empty {
+.empty {
   flex: 1;
 }
-.calculator-container .text {
+.numbers-text {
   font-size: 14px;
   text-align: end;
   color: #344d48;
 }
-.calculator-container .text.percentage {
+.numbers-text.percentage {
   text-align: end;
 }
-.calculator-container .text.multiOp {
+.numbers-text.multiOp {
   margin-left: 5px;
   margin-right: 5px;
   font-size: 20px;
   text-align: start;
 }
-.calculator-container text.multiple {
+.numbers-text.multiple {
   color: red;
 }
-.calculator-container .input {
+/* base rate input text */
+.calculator-container .rate-input {
   width: 80px;
   text-align: right;
   flex-grow: 0;
   font-size: 14px;
   color: #5c5f63;
 }
-.calculator-container .input.multiple {
+.calculator-container .rate-input.multiple {
   width: 25px;
-  color: #ff0000;
+  color: red;
   text-align: left;
 }
+/* the paytype area */
+.radio-horizontal-container {
+  display:flex;
+  flex-direction: row;
+  align-content: center;
+  margin-top: 10px;
+}
+.radio {
+  text-align: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.button-sp-area {
+  margin: 0 auto;
+  width: 60%;
+}
+
+.btn-pay-detail {
+  margin-top: 10px;
+}
+/* first month payment */
 .pay-first-month {
   text-align: center;
   flex: 1;
 }
-
+.pay-area {
+  padding: 30rpx 30rpx;
+  margin-top: 20px;
+}
+.pay-detail-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.pay-detail {
+  text-align: left;
+  display: inline;
+}
+.pay-detail.first-month {
+  text-align: right;
+}

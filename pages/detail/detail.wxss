@@ -33,5 +33,6 @@
 }
 
 .sv {
-  height: 500px;
+  flex: 1;
+  height: 650px;
 }

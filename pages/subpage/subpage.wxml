@@ -1,84 +1,93 @@
 <!--pages/subpage.wxml-->
 <wxs src="./calculator.wxs" module="tools" />
 
-<view class='liner-hor'>
-  <view id="{{tools.loanTypes[0]}}" bindtap='changeLoan' class='liner-hor-title-container'>
+<view class='form-topbar'>
+  <view id="{{tools.loanTypes[0]}}" bindtap='bindChangeLoan' class='form-topbar-title-container'>
     <view class="sub-tab {{loanType == tools.loanTypes[0] ? 'active' : ''}}" hover-class='sub-tab-press'>公积金贷</view>
   </view>
-  <view id="{{tools.loanTypes[1]}}" bindtap='changeLoan' class='liner-hor-title-container'>
+  <view id="{{tools.loanTypes[1]}}" bindtap='bindChangeLoan' class='form-topbar-title-container'>
     <view class="sub-tab {{loanType == tools.loanTypes[1] ? 'active' : ''}}" hover-class='sub-tab-press'>商业贷</view>
   </view>
-  <view id="{{tools.loanTypes[2]}}" bindtap='changeLoan' class='liner-hor-title-container'>
+  <view id="{{tools.loanTypes[2]}}" bindtap='bindChangeLoan' class='form-topbar-title-container'>
     <view class="sub-tab {{loanType == tools.loanTypes[2] ? 'active' : ''}}" hover-class='sub-tab-press'>组合贷</view>
   </view>
 </view>
 
-<view class='desc-hor-container'>
+<view class='desc-form-container'>
   <block wx:if="{{loanType != tools.loanTypes[1]}}">
-    <view class='desc-hor'>
+    <view class='desc-form-item'>
       <text class='title'>公积金贷款总额</text>
       <input bindinput="bindFundInput" placeholder="{{fundAmount}}" class='money-input' type='digit' />
       <text class='title'>万</text>
     </view>
-    <view>
-      <view class='hor-line'></view>
-    </view>
+    <view><view class='horizontal-line'></view></view>
   </block>
 
   <block wx:if="{{loanType != tools.loanTypes[0]}}">
-    <view class='desc-hor'>
+    <view class='desc-form-item'>
       <text class='title'>商业贷款总额</text>
       <input bindinput="bindCommerInput" placeholder="{{commerAmount}}" class='money-input' type='digit'></input>
       <text class='title'>万</text>
     </view>
-    <view>
-      <view class='hor-line'></view>
-    </view>
+    <view><view class='horizontal-line'></view></view>
   </block>
-  <view class='desc-hor'>
+  <view class='desc-form-item'>
     <text class='title'>贷款年限</text>
-    <picker class='picker' mode='selector' bindchange="yearChange" range="{{tools.years}}" value="{{yearIndex}}">
-      <view class='picker-title'>{{tools.years[yearIndex]}} 年</view>
+    <input bindinput="bindYearInput" class='year-picker-input' value="{{months / 12}}" maxlength='5' type='digit'></input>
+    <picker class='year-picker' mode='selector' bindchange="bindYearChange" range="{{tools.years}}" value="{{yearIndex}}">
+      <view class='year-picker-title'>年 </view>
     </picker>
-
   </view>
-  <view>
-    <view class='hor-line'></view>
-  </view>
+  <view><view class='horizontal-line'></view></view>
 
-  <view wx:if="{{loanType != tools.loanTypes[1]}}" class='desc-hor'>
+  <view wx:if="{{loanType != tools.loanTypes[1]}}" class='desc-form-item'>
     <text class='title'>年利率</text>
     <view class='calculator-container'>
       <view class='empty'></view>
-      <input class='input' placeholder="{{baseFundRate}}" maxlength='5' type='digit'></input>
-      <text class='text percentage'>%</text>
-      <text class='text multiOp'>x</text>
-      <input bindinput="fundMulity" class='input multiple' placeholder='1' maxlength='5' type='digit'></input>
-      <text class='text'>倍</text>
+      <input bindinput="bindFundBaseValue" class='rate-input' placeholder="{{baseFundRate}}" maxlength='5' type='digit'></input>
+      <text class='numbers-text percentage'>%</text>
+      <text class='numbers-text multiOp'>x </text>
+      <input bindinput="bindFundMulity" class='rate-input multiple' placeholder='1' maxlength='5' type='digit'></input>
+      <text class='numbers-text'>倍</text>
     </view>
     <text class='title endtext'> = {{fundRateValue}}%</text>
   </view>
   <!-- when combine loand -->
   <block wx:if="{{loanType != tools.loanTypes[0]}}">
-    <view class='desc-hor'>
+    <view class='desc-form-item'>
       <text class='title'>年利率(商贷)</text>
       <view class='calculator-container'>
         <view class='empty'></view>
-        <input class='input' placeholder="{{baseCommerRate}}" maxlength='5' type='digit'></input>
-        <text class='text percentage'>%</text>
-        <text class='text multiOp'>x</text>
-        <input bindinput="commerMulity" class='input multiple' placeholder='1' maxlength='5' type='digit'></input>
-        <text class='text'>倍 </text>
+        <input bindinput='bindCommerBaseValue' class='rate-input' placeholder="{{baseCommerRate}}" maxlength='5' type='digit'></input>
+        <text class='numbers-text percentage'>%</text>
+        <text class='numbers-text multiOp'>x</text>
+        <input bindinput="bindCommerMulity" class='rate-input multiple' placeholder='1' maxlength='5' type='digit'></input>
+        <text class='numbers-text'>倍 </text>
       </view>
       <text class='title endtext'> = {{commerRateValue}}%</text>
     </view>
   </block>
 </view>
 
-<view>
-  <button bindtap="bindCalculate" id='{{tools.years[yearIndex]}}'>开始计算</button>
-  <view class='hor-line'></view>
-  <button bindtap="change">等本息 / 等本金</button>
-  <view class='pay-first-month'>首月还款: {{firstMonth}}</view>
-  <button bindtap='bindToShowDetail'>还款明细</button>
+<view class='page-body page-section-gap'>
+  <radio-group bindchange="bindPayTypeChange" class='radio-horizontal-container'>
+    <label class="radio"><radio value="interest" checked='true'/> 等本息 </label>
+    <label class="radio"><radio value="principal" /> 等本金 </label>
+  </radio-group>
+</view>
+
+<view class='btn-area'>
+  <button type="primary" bindtap="bindCalculate" id='{{tools.years[yearIndex]}}'>开始计算</button>
+  <button bindtap='bindToShowDetail' class='btn-pay-detail'>还款明细</button>
+</view>
+<view class='pay-area'>
+  <view class='pay-detail-container'>
+    <view class='pay-detail'>利息总额: {{interestsTotal}}</view>
+    <view class='pay-detail'>还款总额: {{payTotal}}</view>
+  </view>
+  <view style='margin-top:5px; margin-bottom:5px'><view class='horizontal-line'></view></view>
+  <view class='pay-detail-container'>
+    <view class='pay-detail first-month'>首月还款: {{firstMonth}}</view>
+    <view wx:if="{{payType == tools.payType[1]}}" class='pay-detail first-month'>递减: {{details.minus}}</view>
+  </view>
 </view>

@@ -2,30 +2,39 @@
 wechat minigram
 
 20190219
-创建了一个计算房贷的计算器，未发布
+new a minigram, unpublished
 
-custom-tab-bar 是参考官网教程，[自定义tabBar](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html)
+custom-tab-bar offcial-doc，[custom-tabBar](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html)
+tabbar default index is 0，so you should keep the page's index is 0 when you setup default page.
 
 pages/index/
-初始化工程生成的获取用户信息的界面
+the wechat offcial example page when project initialized.
 
 pages/subpage/
-用户填写贷款信息的
+for user money application
 
 pages/detail/
-展示还款的详细信息
+show the detail payment for every month.
 
-tabbar 默认选中第0个Item，如果要更改默认显示的界面，需要将展示的页面放到app.json中page数组的第一个元素
+
 ```
-// 此时默认展示index
+// index will become the detail page
 "pages": [
   "pages/index/index",
   "pages/subpage/subpage"
 ],
 
-// 此时默认展示subpage
+// subpage will become the detail page
 "pages": [
   "pages/subpage/subpage"
   "pages/index/index"
 ],
 ```
+
+Updated on: 03/09/2019
+remove the custom tabbar, just not need
+add the module to get user info
+
+#### Note that:
+the commercial rate is 4.75% when year less than 6
+the fundation rate is 2.75% when year less than 6
